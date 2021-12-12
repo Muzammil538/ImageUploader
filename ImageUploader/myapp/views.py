@@ -3,10 +3,11 @@ from .forms import ImageForm
 from .models import Image
 # Create your views here.
 
-def Index(request):
+def home(request):
     if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
-    if form.is_valid():
-        form.save()
+        if form.is_valid():
+            form.save()
     form = ImageForm()
-    return render(request, 'myapp/index.html', {'form':form})
+    img = Image.objects.all()
+    return render(request, 'myapp/home.html', {'img':img,'form':form})
